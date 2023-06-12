@@ -1,134 +1,3 @@
-<!doctype html>
-<html xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8" />
-    <title>Canvas Maze Game</title>
-    <style>
-        * { padding: 0; margin: 0; }
-        #heading {
-            text-align: center;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            font-size: xx-large;
-        }
-        #heading{ margin: 0 auto}
-        #canvas { background: #99afa3; display: block; margin: 0 auto; }
-        #c { background: #eeeeee; display: block; margin: 0 auto; }
-        #timerel { background: #eeeeee; display: block; margin: 0 auto; }
-    </style>
-    <style>
-        /* The Modal (background) */
-        .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 20%; /* Location of the box */
-            left: 0;
-            top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-        }
-
-        /* Modal Content */
-        .modal-content {
-            position: relative;
-            background-color: #fefefe;
-            margin: auto;
-            padding: 0;
-            border: 1px solid #888;
-            width: 30%;
-            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-            -webkit-animation-name: animatetop;
-            -webkit-animation-duration: 0.4s;
-            animation-name: animatetop;
-            animation-duration: 0.4s
-        }
-
-        /* Add Animation */
-        @-webkit-keyframes animatetop {
-            from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
-        }
-
-        @keyframes animatetop {
-            from {top:-300px; opacity:0}
-            to {top:0; opacity:1}
-        }
-
-        /* The Close Button */
-        .close {
-            color: white;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .modal-header {
-            padding: 2px 16px;
-            background-color: #41d9f4;
-            color: white;
-            text-align: center;
-            height : 50%;
-        }
-
-        .modal-body {padding: 2px 16px;}
-
-        .modal-footer {
-            padding: 2px 16px;
-            background-color:#f4bc42;
-            color: white;
-            text-align: center;
-            height: 50%;
-        }
-    </style>
-
-
-</head>
-<body>
-<section>
-    <div id="wrapper" style="margin-left:auto; margin-right:auto;">
-        <h1 id="heading" style="background-color: #a59e9a; text-decoration-style: solid; color: #F8F8F8; width: 40%; margin-top: 0px; margin-bottom: 10px">Lost Path</h1>
-        <div id="maze">
-            <p style="text-align: center;margin-bottom: 10px">Find the way out of Maze in 30 seconds!</p>
-            <div id="c" style="margin-left:auto; margin-right:auto;margin-bottom: 10px;text-align: center;width: 10%;font-size: large"></div>
-
-            <canvas id="canvas" width="523" height="523" style="margin-left:auto; margin-right:auto">
-            This text is displayed if your browser does not support HTML5 Canvas.
-        </canvas>
-            <div id="timerel" style="margin-left:auto; margin-right:auto;margin-top:0px;text-align: center;width: 15%;font-size: large"></div>
-
-        </div>
-
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2 class="gamehead"></h2>
-                </div>
-                <div class="modal-footer">
-                    <h2 id="demo" onmouseover="" style="cursor:pointer;">Play Again?</h2>
-                </div>
-            </div>
-
-        </div>
-
-
-    </div>
-    <!--canvas id="c" width="2048" height="2048" style="margin-left:auto; margin-right:auto"></canvas-->
-    <script type="text/javascript">
         // Get the modal
         var modal = document.getElementById('myModal');
 
@@ -143,19 +12,19 @@
             x.textContent = "Game Over"
 
         }
-
         modelfunwin = function() {
-            console.log("func called")
+            console.log("func called");
             modal.style.display = "block";
             x = document.querySelector(".gamehead");
-            x.textContent = "Congrats! You Win"
-
-        }
-
+            x.textContent = "Congrats! You Win";
+            y = document.querySelector(".submit");
+            y.innerHTML += '<input type="submit" value="Submit Move" name="submitmv" id="submit" />';
+        };
+        
         document.getElementById("demo").addEventListener("click", myFunction);
 
         function myFunction() {
-            document.location.reload();
+            window.location.replace(window.location.href);
         }
 
         // When the user clicks on <span> (x), close the modal
@@ -186,7 +55,7 @@
                     minutes = minutes < 10 ? "0" + minutes : minutes;
                     seconds = seconds < 10 ? "0" + seconds : seconds;
                     display.textContent = "Game ends in " + minutes + ":" + seconds;
-
+                    document.getElementById("timesave").value =  30 - seconds;
                     if (diff <= 0) {
                         display.textContent = "Game Over";
                         start = Date.now() + 1000;
@@ -549,17 +418,9 @@
         m.draw_canvas("canvas");
         function drawMoves() {
             document.getElementById("c").innerHTML = "Moves: "+ m.getMoves()
+            document.getElementById("movesInput").value = m.moves;
         }
        // drawMoves();
        setInterval(drawMoves, 100);
 
         //addEvents();
-    </script>
-    <script>
-
-    </script>
-
-
-</section>
-</body>
-</html>
